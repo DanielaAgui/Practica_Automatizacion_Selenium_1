@@ -12,33 +12,30 @@ import java.util.concurrent.TimeUnit;
 public class BaseTest {
 
     private WebDriver driver;
-    public HomePage homePage;
+    protected HomePage homePage;
 
     @BeforeClass
     public void setUp() {
-        String driverName = "chrome";
+        String user = System.getProperty("user");
 
         //Elegimos el driver a utilizar
-        if (driverName.equalsIgnoreCase("Chrome")) {
+        if (user.equalsIgnoreCase("Chrome")) {
             System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
             driver = new ChromeDriver(getChromeOptions());
             homePage = new HomePage(driver);
             driver.get("https://travel.luegopago.com/");
-            driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        } else if (driverName.equalsIgnoreCase("Firefox")) {
+        } else if (user.equalsIgnoreCase("Firefox")) {
             System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
             driver = new FirefoxDriver(getFirefoxOptions());
             homePage = new HomePage(driver);
             driver.get("https://travel.luegopago.com/");
-            driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-        } else if (driverName.equalsIgnoreCase("Edge")) {
+        } else if (user.equalsIgnoreCase("Edge")) {
             System.setProperty("webdriver.edge.driver", "resources/msedgedriver.exe");
             driver = new EdgeDriver(getEdgeOptions());
             homePage = new HomePage(driver);
             driver.get("https://travel.luegopago.com/");
-            driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         } else {
             System.out.println("Nombre de driver no válido");
